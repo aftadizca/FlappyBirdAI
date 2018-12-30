@@ -7,6 +7,7 @@
 window.onload = function () {
 	var game = new Phaser.Game(1280, 720, Phaser.AUTO, 'game');
 	game.state.add('Menu', App.Menu);
+	//show start page
 	game.state.start('Menu');
 };
 
@@ -31,11 +32,10 @@ App.Menu.prototype = {
 		this.scale.pageAlignVertically = true;
 		this.scale.pageAlignHorizontally = true;
 		this.game.stage.backgroundColor = "#BBDEFB";
-
+		//show logo
 		this.sprPause = this.game.add.sprite(640, 200, 'Logo');
 		this.sprPause.anchor.setTo(0.5);
 
-		//this.startBtn = this.game.add.button(360, 360, 'btn', this.onStartClick, this, 5, 3);
 		this.startBtn = new LabelButton(this.game,640, 410,"btn", "START", this.onStartClick, this,  5, 3, 4, 3);
 	},
 	update: function(){
@@ -463,6 +463,9 @@ var Text = function(game, x, y, text, align, font){
 Text.prototype = Object.create(Phaser.BitmapText.prototype);
 Text.prototype.constructor = Text;
 
+/***********************************************************************************
+/* Button With Label extends Phaser.Button
+/***********************************************************************************/
 var LabelButton = function(game, x, y, key, label, callback, callbackContext, overFrame, outFrame, downFrame, upFrame){    
 	Phaser.Button.call(this, game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame);    
 	this.style = {'font': 'bold 14pt Comic Sans MS','fill': '#01579B'};    
@@ -479,11 +482,3 @@ LabelButton.prototype.constructor = LabelButton;
 LabelButton.prototype.setLabel = function(label) {       
 	this.label.setText(label);
 };
-
-function download(content, fileName, contentType) {
-    var a = document.createElement("a");
-    var file = new Blob([content], {type: contentType});
-    a.href = URL.createObjectURL(file);
-    a.download = fileName;
-    a.click();
-}
