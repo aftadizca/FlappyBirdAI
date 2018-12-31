@@ -20,7 +20,7 @@ var App = {};
 App.Menu = function(game){
 
 };
-
+//Start Menu
 App.Menu.prototype = {
 	preload: function(){
 		this.game.load.atlasXML('btn','assets/blueSheet.png','assets/blueSheet.xml');
@@ -59,6 +59,7 @@ App.Menu.prototype = {
 
 };
 
+//Main app
 App.Main = function(game){
 	this.STATE_INIT = 1;
 	this.STATE_START = 2;
@@ -229,7 +230,7 @@ App.Main.prototype = {
 				this.TargetPoint.y = this.targetBarrier.getGapY();
 				
 				var isNextTarget = false; // flag to know if we need to set the next target barrier
-				
+
 				this.BirdGroup.forEachAlive(function(bird){
 					// calculate the current fitness and the score for this bird
 					bird.fitness_curr = this.distance - this.game.physics.arcade.distanceBetween(bird, this.TargetPoint);
@@ -320,7 +321,6 @@ App.Main.prototype = {
 	
 	onRestartClick : function(){
 		this.state = this.STATE_INIT;
-		localStorage.removeItem("trainingData");
     },
 	
 	onMainMenuClick : function(){
