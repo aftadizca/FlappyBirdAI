@@ -62,7 +62,7 @@ GeneticAlgorithm.prototype = {
 		var outputs = this.Population[bird.index].activate(inputs);
 			
 		// perform flap if output is greater than 0.5
-		if (outputs[0] > 0.5) bird.flap();
+		if (outputs[0] > 0.5) bird.flap(); 
 	},
 	
 	// evolves the population by performing selection, crossover and mutations on the units
@@ -70,13 +70,11 @@ GeneticAlgorithm.prototype = {
 		// select the top units of the current population to get an array of winners
 		// (they will be copied to the next population)
 		var Winners = this.selection();
-		
-		localStorage.setItem("trainingData",JSON.stringify(Winners));
 
 		if (this.mutateRate == 1 && Winners[0].fitness < 0){ 
 			// If the best unit from the initial population has a negative fitness 
 			// then it means there is no any bird which reached the first barrier!
-			// Playing as the God, we can destroy this bad population and try with another one.
+			//  we can destroy this bad population and try with another one.
 			this.createPopulation();
 		} else {
 			this.mutateRate = 0.2; // else set the mutatation rate to the real value
@@ -116,6 +114,7 @@ GeneticAlgorithm.prototype = {
 			
 			// update population by changing the old unit with the new one
 			this.Population[i] = newUnit;
+			localStorage.setItem("trainingData",JSON.stringify(this.Population));
 		}
 		
 		// if the top winner has the best fitness in the history, store its achievement!
@@ -183,7 +182,7 @@ GeneticAlgorithm.prototype = {
 	// mutates a gene
 	mutate : function (gene){
 		if (Math.random() < this.mutateRate) {
-			var mutateFactor = 1 + ((Math.random() - 0.5) * 3 + (Math.random() - 0.5));
+			var mutateFactor = 1 + ((Math.random() - 0.5) * 3 + (Math.random() - 0.5)); //Max Value = 3
 			gene *= mutateFactor;
 		}
 		
@@ -191,13 +190,13 @@ GeneticAlgorithm.prototype = {
 	},
 	
 	random : function(min, max){
-		return Math.floor(Math.random()*(max-min+1) + min);
+		return Math.floor(Math.random()*(max-min+1) + min); //return random rounded number
 	},
 	
 	getRandomUnit : function(array){
 		return array[this.random(0, array.length-1)];
 	},
-	
+
 	normalize : function(value, max){
 		// clamp the value between its min/max limits
 		if (value < -max) value = -max;

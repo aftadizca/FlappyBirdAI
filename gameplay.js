@@ -23,7 +23,9 @@ App.Menu = function(game){
 //Start Menu
 App.Menu.prototype = {
 	preload: function(){
+		//loading button image
 		this.game.load.atlasXML('btn','assets/blueSheet.png','assets/blueSheet.xml');
+		//loading logo in start
 		this.game.load.image('Logo', 'assets/LOGO.png');
 	},
 	create: function(){
@@ -35,7 +37,7 @@ App.Menu.prototype = {
 		//show logo
 		this.sprPause = this.game.add.sprite(640, 200, 'Logo');
 		this.sprPause.anchor.setTo(0.5);
-
+		//set Start Button
 		this.startBtn = new LabelButton(this.game,640, 410,"btn", "START", this.onStartClick, this,  5, 3, 4, 3);
 	},
 	update: function(){
